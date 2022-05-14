@@ -12,5 +12,6 @@
     },
     "require": {
         "drupal/default_content": "^2.0@alpha"
-    }
+    },
+    "version": "1.0.0"
 }
