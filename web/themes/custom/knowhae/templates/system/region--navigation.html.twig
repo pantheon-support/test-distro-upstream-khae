@@ -1,0 +1,52 @@
+{#
+/**
+ * @file
+ * Theme override to display a region.
+ *
+ * Available variables:
+ * - content: The content for this region, typically blocks.
+ * - attributes: HTML attributes for the region div.
+ * - region: The name of the region variable as defined in the theme's
+ *   .info.yml file.
+ *
+ * @ingroup templates
+ *
+ * @see template_preprocess_region()
+ */
+#}
+{%
+  set classes = [
+    'region',
+    'region-' ~ region|clean_class,
+  ]
+%}
+{% if content %}
+  <div{{ attributes.addClass(classes) }}>
+    <div class="knowhae-logo">{{ elements.knowhae_branding }}</div>
+    <div class="knowhae-nav-menus">
+      <div class="knowhae-hcp-menu">{{ elements.hcpmenu }}</div>
+      <div class="knowhae-patient-menu">{{ elements.patientmenu }}</div>
+    </div>
+    <div class="knowhae-utility-social-lang-menus">
+      <div class="knowhae-hcputility-menu">{{ elements.hcputilitymenu }}</div>
+      <div class="knowhae-patientutility-menu">{{ elements.patientutilitymenu }}</div>
+      <div class="knowhae-sociallinks-menu">{{ elements.sociallinks }}</div>
+      <div class="knowhae-hcpsociallinks-menu">{{ elements.hcpsociallinks }}</div>
+      <div class="knowhae-patientsociallinks-menu">{{ elements.patientsociallinks }}</div>
+      <div class="knowhae-enselectyourlanguage-menu">{{ elements.enselectyourlanguage }}</div>
+      <div class="button-lang-cls">   <div class="knowhae-english-lang">English</div>
+      
+      <div class="knowhae-languageswitcher-menu">{{ elements.languageswitcher }}</div>
+      </div>
+      </div>
+    
+  </div>
+   <div class="mobile-hamber-class">
+         <div class="humbar-cls">
+         <span class="humbar-first"></span>
+         <span class="humbar-second"></span>
+         <span class="humbar-third"></span>
+         </div>
+      </div>
+
+{% endif %}

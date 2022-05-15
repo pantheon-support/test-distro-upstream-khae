@@ -1,0 +1,61 @@
+<?php
+
+/**
+ * @file
+ * Bootstrap sub-theme.
+ */
+use Drupal\file\Entity\File;
+
+/**
+ * Implements hook_preprocess_block().
+ */
+function knowhae_preprocess_block__system_branding_block(&$variables) {
+  $current_path = \Drupal::service('path.current')->getPath();
+  $alias_path = \Drupal::service('path_alias.manager')->getAliasByPath($current_path);
+  $split_path = explode('/', $alias_path);
+  $variables['hcp_logo'] = NULL;
+  if($split_path['1'] == 'hcp'){
+    if (!empty(theme_get_setting('hcp_logo'))) {
+      $fid_logo = theme_get_setting('hcp_logo');
+      $file_logo = File::load($fid_logo[0]);
+      if (is_object($file_logo)) {
+        $url_logo = $file_logo->getFileUri();
+        $url_logo = file_create_url($url_logo);
+        $variables['hcp_logo'] = $url_logo;
+      }
+    }
+  }
+  $variables['#cache']['max-age'] = 0;
+}
+
+/**
+ * Implements hook_preprocess_html().
+ */
+function knowhae_preprocess_html(&$vars) {
+  $current_path = \Drupal::service('path.current')->getPath();
+  $alias_path = \Drupal::service('path_alias.manager')->getAliasByPath($current_path);
+  $split_path = explode('/', $alias_path);
+  if($split_path['1'] == 'hcp') {  
+    $vars['attributes']['class'][] = 'hcp-article';
+  } elseif($split_path['1'] == 'patient') {
+    $vars['attributes']['class'][] = 'patient-article';
+  }
+  
+  $nid = \Drupal::routeMatch()->getRawParameter('node');
+  $vars['attributes']['class'][] = 'node-'.$nid;
+
+  $language = Drupal::languageManager()->getCurrentLanguage()->getId(); 
+  $vars['attributes']['class'][] = 'node-'.$language;
+
+  $vars['language_code'] = $language;
+}
+
+
+/**
+ * Implements hook_preprocess_page().
+ */
+// function knowhae_preprocess_page(&$vars) {
+//   $vars['cookienotification'] = \Drupal::request()->cookies->get('cookienotification');
+//   $vars['#cache']['max-age'] = 0;
+//   // $vars['no_cache'] = TRUE;
+// }

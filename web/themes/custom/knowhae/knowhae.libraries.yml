@@ -1,0 +1,8 @@
+framework:
+  css:
+    theme:
+      css/style.css: { weight: 1 }
+      css/responsive.css: { weight: 2 }
+  js:
+    js/custom.js: {}
+    js/script.js: {}
